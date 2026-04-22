@@ -39,6 +39,12 @@ export function matchWordBackwards(
     for (let i = cursor.ch - 1; i >= lookBackEnd; i--) {
         const prevChar = editor.getRange({ ...cursor, ch: i }, { ...cursor, ch: i + 1 });
         if (!charPredicate(prevChar)) {
+            if(prevChar != '\\'){
+                //dont match
+                query = "";
+                separatorChar = " ";
+                return { query, separatorChar };
+            }
             separatorChar = prevChar;
             break;
         }
